@@ -1,6 +1,6 @@
 <sdf version='1.6'>
   <model name='iris'>
-    <link name='iris/base_link'>
+    <link name='/base_link'>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <inertial>
         <pose frame=''>0.007977 0 -0.002393 0 -0 0</pose>
@@ -14,7 +14,7 @@
           <izz>0.0989008</izz>
         </inertia>
       </inertial>
-      <collision name='iris/base_link_inertia_collision'>
+      <collision name='/base_link_inertia_collision'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <box>
@@ -22,7 +22,7 @@
           </box>
         </geometry>
       </collision>
-      <collision name='iris/base_link_fixed_joint_lump__iris/vi_sensor/vi_sensor_link_collision_1'>
+      <collision name='/base_link_fixed_joint_lump__/vi_sensor/vi_sensor_link_collision_1'>
         <pose frame=''>0.1 0 -0.03 0 0.1 0</pose>
         <geometry>
           <box>
@@ -30,7 +30,7 @@
           </box>
         </geometry>
       </collision>
-      <collision name='iris/base_link_fixed_joint_lump__iris/vi_sensor/camera_depth_link_collision_2'>
+      <collision name='/base_link_fixed_joint_lump__/vi_sensor/camera_depth_link_collision_2'>
         <pose frame=''>0.115574 0.055 -0.02503 0 0.1 0</pose>
         <geometry>
           <cylinder>
@@ -47,7 +47,7 @@
           </friction>
         </surface>
       </collision>
-      <collision name='iris/base_link_fixed_joint_lump__iris/vi_sensor/camera_left_link_collision_3'>
+      <collision name='/base_link_fixed_joint_lump__/vi_sensor/camera_left_link_collision_3'>
         <pose frame=''>0.115574 0.055 -0.02503 0 0.1 0</pose>
         <geometry>
           <cylinder>
@@ -64,7 +64,7 @@
           </friction>
         </surface>
       </collision>
-      <collision name='iris/base_link_fixed_joint_lump__iris/vi_sensor/camera_right_link_collision_4'>
+      <collision name='/base_link_fixed_joint_lump__/vi_sensor/camera_right_link_collision_4'>
         <pose frame=''>0.115574 -0.055 -0.02503 0 0.1 0</pose>
         <geometry>
           <cylinder>
@@ -73,7 +73,7 @@
           </cylinder>
         </geometry>
       </collision>
-      <visual name='iris/base_link_inertia_visual'>
+      <visual name='/base_link_inertia_visual'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
@@ -82,7 +82,7 @@
           </mesh>
         </geometry>
       </visual>
-      <visual name='iris/base_link_fixed_joint_lump__iris/vi_sensor/vi_sensor_link_visual_1'>
+      <visual name='/base_link_fixed_joint_lump__/vi_sensor/vi_sensor_link_visual_1'>
         <pose frame=''>0.1 0 -0.03 0 0.1 0</pose>
         <geometry>
           <mesh>
@@ -92,7 +92,7 @@
         </geometry>
       </visual>
       <velocity_decay/>
-      <sensor name='iris/vi_sensor_camera_{camera_suffix}' type='depth'>
+      <sensor name='/vi_sensor_camera_{camera_suffix}' type='depth'>
         <always_on>1</always_on>
         <update_rate>30</update_rate>
         <camera name='__default__'>
@@ -107,8 +107,8 @@
             <far>10</far>
           </clip>
         </camera>
-        <plugin name='iris/vi_sensor_camera_{camera_suffix}' filename='libgazebo_ros_openni_kinect.so'>
-          <robotNamespace>iris/vi_sensor</robotNamespace>
+        <plugin name='/vi_sensor_camera_{camera_suffix}' filename='libgazebo_ros_openni_kinect.so'>
+          <robotNamespace>/vi_sensor</robotNamespace>
           <alwaysOn>true</alwaysOn>
           <baseline>0.11</baseline>
           <updateRate>30.0</updateRate>
@@ -132,7 +132,7 @@
       <gravity>1</gravity>
       <velocity_decay/>
       <self_collide>0</self_collide>
-      <sensor name='iris/vi_sensor_stereo_camera' type='multicamera'>
+      <sensor name='/vi_sensor_stereo_camera' type='multicamera'>
         <update_rate>30</update_rate>
         <camera name='left'>
           <pose frame=''>0 0 0 0 -0 0</pose>
@@ -170,7 +170,7 @@
             <stddev>0.007</stddev>
           </noise>
         </camera>
-        <plugin name='iris/vi_sensor_stereo_camera_controller' filename='libgazebo_ros_multicamera.so'>
+        <plugin name='/vi_sensor_stereo_camera_controller' filename='libgazebo_ros_multicamera.so'>
           <alwaysOn>true</alwaysOn>
           <updateRate>0.0</updateRate>
           <cameraName>vi_sensor</cameraName>
@@ -187,7 +187,7 @@
         <pose frame=''>0.115574 0.055 -0.02503 0 0.1 0</pose>
       </sensor>
     </link>
-    <link name='iris/imu_link'>
+    <link name='/imu_link'>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <inertial>
         <pose frame=''>0 0 0 0 -0 0</pose>
@@ -202,9 +202,9 @@
         </inertia>
       </inertial>
     </link>
-    <joint name='iris/imu_joint' type='revolute'>
-      <child>iris/imu_link</child>
-      <parent>iris/base_link</parent>
+    <joint name='/imu_joint' type='revolute'>
+      <child>/imu_link</child>
+      <parent>/base_link</parent>
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
@@ -220,7 +220,7 @@
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
     </joint>
-    <link name='iris/odometry_sensor1_link'>
+    <link name='/odometry_sensor1_link'>
       <pose frame=''>0 0 0 0 -0 0</pose>
       <inertial>
         <pose frame=''>0 0 0 0 -0 0</pose>
@@ -235,9 +235,9 @@
         </inertia>
       </inertial>
     </link>
-    <joint name='iris/odometry_sensor1_joint' type='revolute'>
-      <child>iris/odometry_sensor1_link</child>
-      <parent>iris/base_link</parent>
+    <joint name='/odometry_sensor1_joint' type='revolute'>
+      <child>/odometry_sensor1_link</child>
+      <parent>/base_link</parent>
       <axis>
         <xyz>1 0 0</xyz>
         <limit>
@@ -253,7 +253,7 @@
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
     </joint>
-    <link name='iris/rotor_0'>
+    <link name='/rotor_0'>
       <pose frame=''>0.13 -0.22 0.023 0 -0 0</pose>
       <inertial>
         <pose frame=''>0 0 0 0 -0 0</pose>
@@ -267,7 +267,7 @@
           <izz>4.26041e-05</izz>
         </inertia>
       </inertial>
-      <collision name='iris/rotor_0_collision'>
+      <collision name='/rotor_0_collision'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <cylinder>
@@ -284,7 +284,7 @@
           </friction>
         </surface>
       </collision>
-      <visual name='iris/rotor_0_visual'>
+      <visual name='/rotor_0_visual'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
@@ -303,9 +303,9 @@
       <velocity_decay/>
       <self_collide>0</self_collide>
     </link>
-    <joint name='iris/rotor_0_joint' type='revolute'>
-      <child>iris/rotor_0</child>
-      <parent>iris/base_link</parent>
+    <joint name='/rotor_0_joint' type='revolute'>
+      <child>/rotor_0</child>
+      <parent>/base_link</parent>
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
@@ -319,7 +319,7 @@
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
     </joint>
-    <link name='iris/rotor_1'>
+    <link name='/rotor_1'>
       <pose frame=''>-0.13 0.2 0.023 0 -0 0</pose>
       <inertial>
         <pose frame=''>0 0 0 0 -0 0</pose>
@@ -333,7 +333,7 @@
           <izz>4.26041e-05</izz>
         </inertia>
       </inertial>
-      <collision name='iris/rotor_1_collision'>
+      <collision name='/rotor_1_collision'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <cylinder>
@@ -350,7 +350,7 @@
           </friction>
         </surface>
       </collision>
-      <visual name='iris/rotor_1_visual'>
+      <visual name='/rotor_1_visual'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
@@ -369,9 +369,9 @@
       <velocity_decay/>
       <self_collide>0</self_collide>
     </link>
-    <joint name='iris/rotor_1_joint' type='revolute'>
-      <child>iris/rotor_1</child>
-      <parent>iris/base_link</parent>
+    <joint name='/rotor_1_joint' type='revolute'>
+      <child>/rotor_1</child>
+      <parent>/base_link</parent>
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
@@ -385,7 +385,7 @@
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
     </joint>
-    <link name='iris/rotor_2'>
+    <link name='/rotor_2'>
       <pose frame=''>0.13 0.22 0.023 0 -0 0</pose>
       <inertial>
         <pose frame=''>0 0 0 0 -0 0</pose>
@@ -399,7 +399,7 @@
           <izz>4.26041e-05</izz>
         </inertia>
       </inertial>
-      <collision name='iris/rotor_2_collision'>
+      <collision name='/rotor_2_collision'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <cylinder>
@@ -416,7 +416,7 @@
           </friction>
         </surface>
       </collision>
-      <visual name='iris/rotor_2_visual'>
+      <visual name='/rotor_2_visual'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
@@ -435,9 +435,9 @@
       <velocity_decay/>
       <self_collide>0</self_collide>
     </link>
-    <joint name='iris/rotor_2_joint' type='revolute'>
-      <child>iris/rotor_2</child>
-      <parent>iris/base_link</parent>
+    <joint name='/rotor_2_joint' type='revolute'>
+      <child>/rotor_2</child>
+      <parent>/base_link</parent>
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
@@ -451,7 +451,7 @@
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
     </joint>
-    <link name='iris/rotor_3'>
+    <link name='/rotor_3'>
       <pose frame=''>-0.13 -0.2 0.023 0 -0 0</pose>
       <inertial>
         <pose frame=''>0 0 0 0 -0 0</pose>
@@ -465,7 +465,7 @@
           <izz>4.26041e-05</izz>
         </inertia>
       </inertial>
-      <collision name='iris/rotor_3_collision'>
+      <collision name='/rotor_3_collision'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <cylinder>
@@ -482,7 +482,7 @@
           </friction>
         </surface>
       </collision>
-      <visual name='iris/rotor_3_visual'>
+      <visual name='/rotor_3_visual'>
         <pose frame=''>0 0 0 0 -0 0</pose>
         <geometry>
           <mesh>
@@ -501,9 +501,9 @@
       <velocity_decay/>
       <self_collide>0</self_collide>
     </link>
-    <joint name='iris/rotor_3_joint' type='revolute'>
-      <child>iris/rotor_3</child>
-      <parent>iris/base_link</parent>
+    <joint name='/rotor_3_joint' type='revolute'>
+      <child>/rotor_3</child>
+      <parent>/base_link</parent>
       <axis>
         <xyz>0 0 1</xyz>
         <limit>
@@ -517,7 +517,7 @@
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
     </joint>
-    <link name='iris/vi_sensor/ground_truth/odometry_sensor_link'>
+    <link name='/vi_sensor/ground_truth/odometry_sensor_link'>
       <pose frame=''>0.1 0 -0.03 0 0.1 0</pose>
       <inertial>
         <pose frame=''>0 0 0 0 -0 0</pose>
@@ -532,9 +532,9 @@
         </inertia>
       </inertial>
     </link>
-    <joint name='iris/vi_sensor/ground_truth/odometry_sensor_joint' type='revolute'>
-      <child>iris/vi_sensor/ground_truth/odometry_sensor_link</child>
-      <parent>iris/base_link</parent>
+    <joint name='/vi_sensor/ground_truth/odometry_sensor_joint' type='revolute'>
+      <child>/vi_sensor/ground_truth/odometry_sensor_link</child>
+      <parent>/base_link</parent>
       <axis>
         <xyz>0.995004 0 -0.099833</xyz>
         <limit>
@@ -550,7 +550,7 @@
         <use_parent_model_frame>1</use_parent_model_frame>
       </axis>
     </joint>
-    <link name='iris/vi_sensor/imu_link'>
+    <link name='/vi_sensor/imu_link'>
       <pose frame=''>0.116053 0 -0.020254 0 0.1 0</pose>
       <inertial>
         <pose frame=''>0 0 0 0 -0 0</pose>
@@ -565,9 +565,9 @@
         </inertia>
       </inertial>
     </link>
-    <joint name='iris/vi_sensor/imu_joint' type='revolute'>
-      <child>iris/vi_sensor/imu_link</child>
-      <parent>iris/base_link</parent>
+    <joint name='/vi_sensor/imu_joint' type='revolute'>
+      <child>/vi_sensor/imu_link</child>
+      <parent>/base_link</parent>
       <axis>
         <xyz>0.995004 0 -0.099833</xyz>
         <limit>
@@ -584,14 +584,14 @@
       </axis>
     </joint>
     <plugin name='multirotor_base_plugin' filename='librotors_gazebo_multirotor_base_plugin.so'>
-      <robotNamespace>iris</robotNamespace>
-      <linkName>iris/base_link</linkName>
+      <robotNamespace/>
+      <linkName>/base_link</linkName>
       <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
     </plugin>
-    <plugin name='iris_front_right_motor_model' filename='librotors_gazebo_motor_model.so'>
-      <robotNamespace>iris</robotNamespace>
-      <jointName>iris/rotor_0_joint</jointName>
-      <linkName>iris/rotor_0</linkName>
+    <plugin name='_front_right_motor_model' filename='librotors_gazebo_motor_model.so'>
+      <robotNamespace/>
+      <jointName>/rotor_0_joint</jointName>
+      <linkName>/rotor_0</linkName>
       <turningDirection>ccw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
@@ -605,10 +605,10 @@
       <motorSpeedPubTopic>motor_speed/0</motorSpeedPubTopic>
       <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
     </plugin>
-    <plugin name='iris_back_left_motor_model' filename='librotors_gazebo_motor_model.so'>
-      <robotNamespace>iris</robotNamespace>
-      <jointName>iris/rotor_1_joint</jointName>
-      <linkName>iris/rotor_1</linkName>
+    <plugin name='_back_left_motor_model' filename='librotors_gazebo_motor_model.so'>
+      <robotNamespace/>
+      <jointName>/rotor_1_joint</jointName>
+      <linkName>/rotor_1</linkName>
       <turningDirection>ccw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
@@ -622,10 +622,10 @@
       <motorSpeedPubTopic>motor_speed/1</motorSpeedPubTopic>
       <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
     </plugin>
-    <plugin name='iris_front_left_motor_model' filename='librotors_gazebo_motor_model.so'>
-      <robotNamespace>iris</robotNamespace>
-      <jointName>iris/rotor_2_joint</jointName>
-      <linkName>iris/rotor_2</linkName>
+    <plugin name='_front_left_motor_model' filename='librotors_gazebo_motor_model.so'>
+      <robotNamespace/>
+      <jointName>/rotor_2_joint</jointName>
+      <linkName>/rotor_2</linkName>
       <turningDirection>cw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
@@ -639,10 +639,10 @@
       <motorSpeedPubTopic>motor_speed/2</motorSpeedPubTopic>
       <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
     </plugin>
-    <plugin name='iris_back_right_motor_model' filename='librotors_gazebo_motor_model.so'>
-      <robotNamespace>iris</robotNamespace>
-      <jointName>iris/rotor_3_joint</jointName>
-      <linkName>iris/rotor_3</linkName>
+    <plugin name='_back_right_motor_model' filename='librotors_gazebo_motor_model.so'>
+      <robotNamespace/>
+      <jointName>/rotor_3_joint</jointName>
+      <linkName>/rotor_3</linkName>
       <turningDirection>cw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
@@ -657,11 +657,11 @@
       <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
     </plugin>
     <plugin name='gps_plugin' filename='libgazebo_gps_plugin.so'>
-      <robotNamespace>iris</robotNamespace>
+      <robotNamespace/>
       <gpsNoise>true</gpsNoise>
     </plugin>
     <plugin name='mavlink_interface' filename='librotors_gazebo_mavlink_interface.so'>
-      <robotNamespace>iris</robotNamespace>
+      <robotNamespace/>
       <imuSubTopic>/imu</imuSubTopic>
       <gpsSubTopic>/gps</gpsSubTopic>
       <mavlink_addr>INADDR_ANY</mavlink_addr>
@@ -772,9 +772,17 @@
         </channel>
       </control_channels>
     </plugin>
+    <plugin name='controller_interface' filename='librotors_gazebo_controller_interface.so'>
+      <robotNamespace/>
+      <commandAttitudeThrustSubTopic>command/attitude</commandAttitudeThrustSubTopic>
+      <commandRateThrustSubTopic>command/rate</commandRateThrustSubTopic>
+      <commandMotorSpeedSubTopic>command/motor_speed</commandMotorSpeedSubTopic>
+      <imuSubTopic>imu</imuSubTopic>
+      <motorSpeedCommandPubTopic>gazebo/command/motor_speed</motorSpeedCommandPubTopic>
+    </plugin>
     <plugin name='rotors_gazebo_imu_plugin' filename='librotors_gazebo_imu_plugin.so'>
-      <robotNamespace>iris</robotNamespace>
-      <linkName>iris/imu_link</linkName>
+      <robotNamespace/>
+      <linkName>/imu_link</linkName>
       <imuTopic>/imu</imuTopic>
       <gyroscopeNoiseDensity>0.0003394</gyroscopeNoiseDensity>
       <gyroscopeRandomWalk>3.8785e-05</gyroscopeRandomWalk>
@@ -786,15 +794,15 @@
       <accelerometerTurnOnBiasSigma>0.196</accelerometerTurnOnBiasSigma>
     </plugin>
     <plugin name='odometry_sensor1' filename='librotors_gazebo_odometry_plugin.so'>
-      <linkName>iris/odometry_sensor1_link</linkName>
-      <robotNamespace>iris</robotNamespace>
+      <linkName>/odometry_sensor1_link</linkName>
+      <robotNamespace/>
       <poseTopic>odometry_sensor1/pose</poseTopic>
       <poseWithCovarianceTopic>odometry_sensor1/pose_with_covariance</poseWithCovarianceTopic>
       <positionTopic>odometry_sensor1/position</positionTopic>
       <transformTopic>odometry_sensor1/transform</transformTopic>
       <odometryTopic>odometry_sensor1/odometry</odometryTopic>
       <parentFrameId>world</parentFrameId>
-      <childFrameId>iris/odometry_sensor1</childFrameId>
+      <childFrameId>/odometry_sensor1</childFrameId>
       <measurementDivisor>1</measurementDivisor>
       <measurementDelay>0</measurementDelay>
       <unknownDelay>0.0</unknownDelay>
@@ -808,15 +816,15 @@
       <noiseUniformAngularVelocity>0 0 0</noiseUniformAngularVelocity>
     </plugin>
     <plugin name='odometry_sensor' filename='librotors_gazebo_odometry_plugin.so'>
-      <linkName>iris/vi_sensor/ground_truth/odometry_sensor_link</linkName>
-      <robotNamespace>iris/vi_sensor/ground_truth</robotNamespace>
+      <linkName>/vi_sensor/ground_truth/odometry_sensor_link</linkName>
+      <robotNamespace>/vi_sensor/ground_truth</robotNamespace>
       <poseTopic>pose</poseTopic>
       <poseWithCovarianceTopic>pose_with_covariance</poseWithCovarianceTopic>
       <positionTopic>position</positionTopic>
       <transformTopic>transform</transformTopic>
       <odometryTopic>odometry</odometryTopic>
       <parentFrameId>world</parentFrameId>
-      <childFrameId>iris/vi_sensor/base_link</childFrameId>
+      <childFrameId>/vi_sensor/base_link</childFrameId>
       <measurementDivisor>1</measurementDivisor>
       <measurementDelay>0</measurementDelay>
       <unknownDelay>0.0</unknownDelay>
@@ -831,8 +839,8 @@
     </plugin>
     <static>0</static>
     <plugin name='rotors_gazebo_imu_plugin' filename='librotors_gazebo_imu_plugin.so'>
-      <robotNamespace>iris/vi_sensor</robotNamespace>
-      <linkName>iris/vi_sensor/imu_link</linkName>
+      <robotNamespace>/vi_sensor</robotNamespace>
+      <linkName>/vi_sensor/imu_link</linkName>
       <imuTopic>/imu</imuTopic>
       <gyroscopeNoiseDensity>0.0003394</gyroscopeNoiseDensity>
       <gyroscopeRandomWalk>3.8785e-05</gyroscopeRandomWalk>

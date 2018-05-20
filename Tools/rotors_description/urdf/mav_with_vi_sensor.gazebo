@@ -28,7 +28,7 @@
   <xacro:arg name='enable_logging' default='false' />
   <xacro:arg name='log_file' default='iris' />
   <xacro:arg name='wait_to_record_bag' default='false' />
-  <xacro:arg name='namespace' default='$(arg mav_name)'/>
+  <xacro:arg name='namespace' default='iris'/>
   <xacro:include filename="$(find rotors_description)/urdf/mav_generic_odometry_sensor.gazebo" />
 
   <!-- Mount a VI-sensor in front of the Firefly. -->
@@ -40,4 +40,16 @@
     enable_ground_truth="true">
     <origin xyz="0.1 0.0 -0.03" rpy="0.0 0.1 0.0" />
   </xacro:vi_sensor_macro>
+
+  <plugin name="p3d_base_controller" filename="libgazebo_ros_p3d.so">
+      <alwaysOn>true</alwaysOn>
+      <updateRate>50.0</updateRate>
+      <bodyName>iris/base_link</bodyName>
+      <topicName>ground_truth/state</topicName>
+      <gaussianNoise>0.01</gaussianNoise>
+      <frameName>world</frameName>
+      <xyzOffsets>0 0 0</xyzOffsets>
+      <rpyOffsets>0 0 0</rpyOffsets>
+   </plugin>
+
 </robot>

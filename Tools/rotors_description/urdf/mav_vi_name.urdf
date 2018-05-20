@@ -24,13 +24,13 @@
 -->
 <robot name="iris" xmlns:xacro="http://ros.org/wiki/xacro">
   <!-- Instantiate the mav with a generic odometry sensor. -->
-  <link name="iris/base_link"/>
-  <joint name="iris/base_joint" type="fixed">
+  <link name="/base_link"/>
+  <joint name="/base_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="iris/base_link"/>
-    <child link="iris/base_link_inertia"/>
+    <parent link="/base_link"/>
+    <child link="/base_link_inertia"/>
   </joint>
-  <link name="iris/base_link_inertia">
+  <link name="/base_link_inertia">
     <inertial>
       <mass value="1.5"/>
       <!-- [kg] -->
@@ -54,20 +54,20 @@
   <!-- attach multirotor_base_plugin to the base_link -->
   <gazebo>
     <plugin filename="librotors_gazebo_multirotor_base_plugin.so" name="multirotor_base_plugin">
-      <robotNamespace>iris</robotNamespace>
-      <linkName>iris/base_link</linkName>
+      <robotNamespace></robotNamespace>
+      <linkName>/base_link</linkName>
       <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
     </plugin>
   </gazebo>
-  <joint name="iris/rotor_0_joint" type="continuous">
+  <joint name="/rotor_0_joint" type="continuous">
     <origin rpy="0 0 0" xyz="0.13 -0.22 0.023"/>
     <axis xyz="0 0 1"/>
     <!-- TODO(ff): not currently set because it's not yet supported -->
     <!-- <limit effort="2000" velocity="${max_rot_velocity}" /> -->
-    <parent link="iris/base_link"/>
-    <child link="iris/rotor_0"/>
+    <parent link="/base_link"/>
+    <child link="/rotor_0"/>
   </joint>
-  <link name="iris/rotor_0">
+  <link name="/rotor_0">
     <inertial>
       <mass value="0.005"/>
       <!-- [kg] -->
@@ -88,10 +88,10 @@
     </collision>
   </link>
   <gazebo>
-    <plugin filename="librotors_gazebo_motor_model.so" name="iris_front_right_motor_model">
-      <robotNamespace>iris</robotNamespace>
-      <jointName>iris/rotor_0_joint</jointName>
-      <linkName>iris/rotor_0</linkName>
+    <plugin filename="librotors_gazebo_motor_model.so" name="_front_right_motor_model">
+      <robotNamespace></robotNamespace>
+      <jointName>/rotor_0_joint</jointName>
+      <linkName>/rotor_0</linkName>
       <turningDirection>ccw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
@@ -106,18 +106,18 @@
       <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
     </plugin>
   </gazebo>
-  <gazebo reference="iris/rotor_0">
+  <gazebo reference="/rotor_0">
     <material>Gazebo/Blue</material>
   </gazebo>
-  <joint name="iris/rotor_1_joint" type="continuous">
+  <joint name="/rotor_1_joint" type="continuous">
     <origin rpy="0 0 0" xyz="-0.13 0.2 0.023"/>
     <axis xyz="0 0 1"/>
     <!-- TODO(ff): not currently set because it's not yet supported -->
     <!-- <limit effort="2000" velocity="${max_rot_velocity}" /> -->
-    <parent link="iris/base_link"/>
-    <child link="iris/rotor_1"/>
+    <parent link="/base_link"/>
+    <child link="/rotor_1"/>
   </joint>
-  <link name="iris/rotor_1">
+  <link name="/rotor_1">
     <inertial>
       <mass value="0.005"/>
       <!-- [kg] -->
@@ -138,10 +138,10 @@
     </collision>
   </link>
   <gazebo>
-    <plugin filename="librotors_gazebo_motor_model.so" name="iris_back_left_motor_model">
-      <robotNamespace>iris</robotNamespace>
-      <jointName>iris/rotor_1_joint</jointName>
-      <linkName>iris/rotor_1</linkName>
+    <plugin filename="librotors_gazebo_motor_model.so" name="_back_left_motor_model">
+      <robotNamespace></robotNamespace>
+      <jointName>/rotor_1_joint</jointName>
+      <linkName>/rotor_1</linkName>
       <turningDirection>ccw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
@@ -156,18 +156,18 @@
       <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
     </plugin>
   </gazebo>
-  <gazebo reference="iris/rotor_1">
+  <gazebo reference="/rotor_1">
     <material>Gazebo/Red</material>
   </gazebo>
-  <joint name="iris/rotor_2_joint" type="continuous">
+  <joint name="/rotor_2_joint" type="continuous">
     <origin rpy="0 0 0" xyz="0.13 0.22 0.023"/>
     <axis xyz="0 0 1"/>
     <!-- TODO(ff): not currently set because it's not yet supported -->
     <!-- <limit effort="2000" velocity="${max_rot_velocity}" /> -->
-    <parent link="iris/base_link"/>
-    <child link="iris/rotor_2"/>
+    <parent link="/base_link"/>
+    <child link="/rotor_2"/>
   </joint>
-  <link name="iris/rotor_2">
+  <link name="/rotor_2">
     <inertial>
       <mass value="0.005"/>
       <!-- [kg] -->
@@ -188,10 +188,10 @@
     </collision>
   </link>
   <gazebo>
-    <plugin filename="librotors_gazebo_motor_model.so" name="iris_front_left_motor_model">
-      <robotNamespace>iris</robotNamespace>
-      <jointName>iris/rotor_2_joint</jointName>
-      <linkName>iris/rotor_2</linkName>
+    <plugin filename="librotors_gazebo_motor_model.so" name="_front_left_motor_model">
+      <robotNamespace></robotNamespace>
+      <jointName>/rotor_2_joint</jointName>
+      <linkName>/rotor_2</linkName>
       <turningDirection>cw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
@@ -206,18 +206,18 @@
       <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
     </plugin>
   </gazebo>
-  <gazebo reference="iris/rotor_2">
+  <gazebo reference="/rotor_2">
     <material>Gazebo/Blue</material>
   </gazebo>
-  <joint name="iris/rotor_3_joint" type="continuous">
+  <joint name="/rotor_3_joint" type="continuous">
     <origin rpy="0 0 0" xyz="-0.13 -0.2 0.023"/>
     <axis xyz="0 0 1"/>
     <!-- TODO(ff): not currently set because it's not yet supported -->
     <!-- <limit effort="2000" velocity="${max_rot_velocity}" /> -->
-    <parent link="iris/base_link"/>
-    <child link="iris/rotor_3"/>
+    <parent link="/base_link"/>
+    <child link="/rotor_3"/>
   </joint>
-  <link name="iris/rotor_3">
+  <link name="/rotor_3">
     <inertial>
       <mass value="0.005"/>
       <!-- [kg] -->
@@ -238,10 +238,10 @@
     </collision>
   </link>
   <gazebo>
-    <plugin filename="librotors_gazebo_motor_model.so" name="iris_back_right_motor_model">
-      <robotNamespace>iris</robotNamespace>
-      <jointName>iris/rotor_3_joint</jointName>
-      <linkName>iris/rotor_3</linkName>
+    <plugin filename="librotors_gazebo_motor_model.so" name="_back_right_motor_model">
+      <robotNamespace></robotNamespace>
+      <jointName>/rotor_3_joint</jointName>
+      <linkName>/rotor_3</linkName>
       <turningDirection>cw</turningDirection>
       <timeConstantUp>0.0125</timeConstantUp>
       <timeConstantDown>0.025</timeConstantDown>
@@ -256,18 +256,18 @@
       <rotorVelocitySlowdownSim>10</rotorVelocitySlowdownSim>
     </plugin>
   </gazebo>
-  <gazebo reference="iris/rotor_3">
+  <gazebo reference="/rotor_3">
     <material>Gazebo/Red</material>
   </gazebo>
   <gazebo>
     <plugin filename="libgazebo_gps_plugin.so" name="gps_plugin">
-      <robotNamespace>iris</robotNamespace>
+      <robotNamespace></robotNamespace>
       <gpsNoise>true</gpsNoise>
     </plugin>
   </gazebo>
   <gazebo>
     <plugin filename="librotors_gazebo_mavlink_interface.so" name="mavlink_interface">
-      <robotNamespace>iris</robotNamespace>
+      <robotNamespace></robotNamespace>
       <imuSubTopic>/imu</imuSubTopic>
       <gpsSubTopic>/gps</gpsSubTopic>
       <mavlink_addr>INADDR_ANY</mavlink_addr>
@@ -381,10 +381,18 @@
       </control_channels>
     </plugin>
   </gazebo>
-  <!-- Instantiate a controller. -->
-  <!-- <xacro:controller_plugin_macro namespace="${namespace}" imu_sub_topic="imu" /> -->
+  <gazebo>
+    <plugin filename="librotors_gazebo_controller_interface.so" name="controller_interface">
+      <robotNamespace></robotNamespace>
+      <commandAttitudeThrustSubTopic>command/attitude</commandAttitudeThrustSubTopic>
+      <commandRateThrustSubTopic>command/rate</commandRateThrustSubTopic>
+      <commandMotorSpeedSubTopic>command/motor_speed</commandMotorSpeedSubTopic>
+      <imuSubTopic>imu</imuSubTopic>
+      <motorSpeedCommandPubTopic>gazebo/command/motor_speed</motorSpeedCommandPubTopic>
+    </plugin>
+  </gazebo>
   <!-- IMU link -->
-  <link name="iris/imu_link">
+  <link name="/imu_link">
     <inertial>
       <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
       <mass value="0.015"/>
@@ -393,19 +401,19 @@
     </inertial>
   </link>
   <!-- IMU joint -->
-  <joint name="iris/imu_joint" type="revolute">
+  <joint name="/imu_joint" type="revolute">
     <origin rpy="0 0 0" xyz="0 0 0"/>
-    <parent link="iris/base_link"/>
-    <child link="iris/imu_link"/>
+    <parent link="/base_link"/>
+    <child link="/imu_link"/>
     <limit effort="0" lower="0" upper="0" velocity="0"/>
   </joint>
   <gazebo>
     <plugin filename="librotors_gazebo_imu_plugin.so" name="rotors_gazebo_imu_plugin">
       <!-- A good description of the IMU parameters can be found in the kalibr documentation:
            https://github.com/ethz-asl/kalibr/wiki/IMU-Noise-Model-and-Intrinsics -->
-      <robotNamespace>iris</robotNamespace>
+      <robotNamespace></robotNamespace>
       <!-- (string, required): ros namespace in which the messages are published -->
-      <linkName>iris/imu_link</linkName>
+      <linkName>/imu_link</linkName>
       <!-- (string, required): name of the body which holds the IMU sensor -->
       <imuTopic>/imu</imuTopic>
       <!-- (string): name of the sensor output topic and prefix of service names (defaults to imu) -->
@@ -481,7 +489,7 @@
     </xacro:odometry_plugin_macro>
   </xacro:if> -->
   <!-- odometry link -->
-  <link name="iris/odometry_sensor1_link">
+  <link name="/odometry_sensor1_link">
     <inertial>
       <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
       <mass value="1e-05"/>
@@ -489,16 +497,16 @@
     </inertial>
   </link>
   <!-- odometry joint -->
-  <joint name="iris/odometry_sensor1_joint" type="revolute">
-    <parent link="iris/base_link"/>
+  <joint name="/odometry_sensor1_joint" type="revolute">
+    <parent link="/base_link"/>
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-    <child link="iris/odometry_sensor1_link"/>
+    <child link="/odometry_sensor1_link"/>
     <limit effort="0" lower="0" upper="0" velocity="0"/>
   </joint>
   <gazebo>
     <plugin filename="librotors_gazebo_odometry_plugin.so" name="odometry_sensor1">
-      <linkName>iris/odometry_sensor1_link</linkName>
-      <robotNamespace>iris</robotNamespace>
+      <linkName>/odometry_sensor1_link</linkName>
+      <robotNamespace></robotNamespace>
       <poseTopic>odometry_sensor1/pose</poseTopic>
       <poseWithCovarianceTopic>odometry_sensor1/pose_with_covariance</poseWithCovarianceTopic>
       <positionTopic>odometry_sensor1/position</positionTopic>
@@ -506,7 +514,7 @@
       <odometryTopic>odometry_sensor1/odometry</odometryTopic>
       <parentFrameId>world</parentFrameId>
       <!-- Use the scoped link name here. e.g. Model::link. -->
-      <childFrameId>iris/odometry_sensor1</childFrameId>
+      <childFrameId>/odometry_sensor1</childFrameId>
       <measurementDivisor>1</measurementDivisor>
       <!-- only every (seq % measurementDivisor) == 0 measurement is published [int] -->
       <measurementDelay>0</measurementDelay>
@@ -531,7 +539,7 @@
     </plugin>
   </gazebo>
   <!-- Vi Sensor Link -->
-  <link name="iris/vi_sensor/vi_sensor_link">
+  <link name="/vi_sensor/vi_sensor_link">
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -550,12 +558,12 @@
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
     </inertial>
   </link>
-  <joint name="iris/vi_sensor_vi_sensor_joint" type="fixed">
+  <joint name="/vi_sensor_vi_sensor_joint" type="fixed">
     <origin rpy="0.0 0.1 0.0" xyz="0.1 0.0 -0.03"/>
-    <parent link="iris/base_link"/>
-    <child link="iris/vi_sensor/vi_sensor_link"/>
+    <parent link="/base_link"/>
+    <child link="/vi_sensor/vi_sensor_link"/>
   </joint>
-  <link name="iris/vi_sensor/camera_left_link">
+  <link name="/vi_sensor/camera_left_link">
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -568,12 +576,12 @@
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
     </inertial>
   </link>
-  <joint name="iris/vi_sensor/camera_left_joint" type="fixed">
+  <joint name="/vi_sensor/camera_left_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.015 0.055 0.0065"/>
-    <parent link="iris/vi_sensor/vi_sensor_link"/>
-    <child link="iris/vi_sensor/camera_left_link"/>
+    <parent link="/vi_sensor/vi_sensor_link"/>
+    <child link="/vi_sensor/camera_left_link"/>
   </joint>
-  <link name="iris/vi_sensor/camera_right_link">
+  <link name="/vi_sensor/camera_right_link">
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -586,20 +594,20 @@
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
     </inertial>
   </link>
-  <joint name="iris/vi_sensor/camera_right_joint" type="fixed">
+  <joint name="/vi_sensor/camera_right_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.015 -0.055 0.0065"/>
-    <parent link="iris/vi_sensor/vi_sensor_link"/>
-    <child link="iris/vi_sensor/camera_right_link"/>
+    <parent link="/vi_sensor/vi_sensor_link"/>
+    <child link="/vi_sensor/camera_right_link"/>
   </joint>
-  <link name="iris/vi_sensor/camera_left_optical_link"/>
-  <joint name="iris/vi_sensor/camera_left_optical_joint" type="fixed">
+  <link name="/vi_sensor/camera_left_optical_link"/>
+  <joint name="/vi_sensor/camera_left_optical_joint" type="fixed">
     <origin rpy="-1.5707963268 0 -1.5707963268" xyz="0 0 0"/>
-    <parent link="iris/vi_sensor/camera_left_link"/>
-    <child link="iris/vi_sensor/camera_left_optical_link"/>
+    <parent link="/vi_sensor/camera_left_link"/>
+    <child link="/vi_sensor/camera_left_optical_link"/>
   </joint>
   <!-- Both cameras in the pair are anchored off the left camera frame. -->
-  <gazebo reference="iris/vi_sensor/camera_left_link">
-    <sensor name="iris/vi_sensor_stereo_camera" type="multicamera">
+  <gazebo reference="/vi_sensor/camera_left_link">
+    <sensor name="/vi_sensor_stereo_camera" type="multicamera">
       <update_rate>30.0</update_rate>
       <camera name="left">
         <pose>0 0 0 0 0 0</pose>
@@ -644,7 +652,7 @@
         </noise>
       </camera>
       <!-- Stereo controller, setting the transforms between the two cameras. -->
-      <plugin filename="libgazebo_ros_multicamera.so" name="iris/vi_sensor_stereo_camera_controller">
+      <plugin filename="libgazebo_ros_multicamera.so" name="/vi_sensor_stereo_camera_controller">
         <alwaysOn>true</alwaysOn>
         <updateRate>0.0</updateRate>
         <cameraName>vi_sensor</cameraName>
@@ -660,7 +668,7 @@
       </plugin>
     </sensor>
   </gazebo>
-  <link name="iris/vi_sensor/camera_depth_link">
+  <link name="/vi_sensor/camera_depth_link">
     <collision>
       <origin rpy="0 0 0" xyz="0 0 0"/>
       <geometry>
@@ -673,22 +681,22 @@
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6"/>
     </inertial>
   </link>
-  <joint name="iris/vi_sensor/camera_depth_joint" type="fixed">
+  <joint name="/vi_sensor/camera_depth_joint" type="fixed">
     <origin rpy="0 0 0" xyz="0.015 0.055 0.0065"/>
-    <parent link="iris/vi_sensor/vi_sensor_link"/>
-    <child link="iris/vi_sensor/camera_depth_link"/>
+    <parent link="/vi_sensor/vi_sensor_link"/>
+    <child link="/vi_sensor/camera_depth_link"/>
     <limit effort="0" lower="0" upper="0" velocity="0"/>
   </joint>
   <!-- Optical center of camera -->
-  <link name="iris/vi_sensor/camera_depth_optical_center_link"/>
-  <joint name="iris/vi_sensor/camera_depth_optical_center_joint" type="fixed">
+  <link name="/vi_sensor/camera_depth_optical_center_link"/>
+  <joint name="/vi_sensor/camera_depth_optical_center_joint" type="fixed">
     <origin rpy="-1.5707963268 0 -1.5707963268" xyz="0 0 0"/>
-    <parent link="iris/vi_sensor/camera_depth_link"/>
-    <child link="iris/vi_sensor/camera_depth_optical_center_link"/>
+    <parent link="/vi_sensor/camera_depth_link"/>
+    <child link="/vi_sensor/camera_depth_optical_center_link"/>
     <limit effort="0" lower="0" upper="0" velocity="0"/>
   </joint>
-  <gazebo reference="iris/vi_sensor/camera_depth_link">
-    <sensor name="iris/vi_sensor_camera_{camera_suffix}" type="depth">
+  <gazebo reference="/vi_sensor/camera_depth_link">
+    <sensor name="/vi_sensor_camera_{camera_suffix}" type="depth">
       <always_on>true</always_on>
       <update_rate>30.0</update_rate>
       <camera>
@@ -703,8 +711,8 @@
           <far>10.0</far>
         </clip>
       </camera>
-      <plugin filename="libgazebo_ros_openni_kinect.so" name="iris/vi_sensor_camera_{camera_suffix}">
-        <robotNamespace>iris/vi_sensor</robotNamespace>
+      <plugin filename="libgazebo_ros_openni_kinect.so" name="/vi_sensor_camera_{camera_suffix}">
+        <robotNamespace>/vi_sensor</robotNamespace>
         <alwaysOn>true</alwaysOn>
         <baseline>0.11</baseline>
         <updateRate>30.0</updateRate>
@@ -726,7 +734,7 @@
     </sensor>
   </gazebo>
   <!-- odometry link -->
-  <link name="iris/vi_sensor/ground_truth/odometry_sensor_link">
+  <link name="/vi_sensor/ground_truth/odometry_sensor_link">
     <inertial>
       <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
       <mass value="1e-05"/>
@@ -734,16 +742,16 @@
     </inertial>
   </link>
   <!-- odometry joint -->
-  <joint name="iris/vi_sensor/ground_truth/odometry_sensor_joint" type="revolute">
-    <parent link="iris/vi_sensor/vi_sensor_link"/>
+  <joint name="/vi_sensor/ground_truth/odometry_sensor_joint" type="revolute">
+    <parent link="/vi_sensor/vi_sensor_link"/>
     <origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
-    <child link="iris/vi_sensor/ground_truth/odometry_sensor_link"/>
+    <child link="/vi_sensor/ground_truth/odometry_sensor_link"/>
     <limit effort="0" lower="0" upper="0" velocity="0"/>
   </joint>
   <gazebo>
     <plugin filename="librotors_gazebo_odometry_plugin.so" name="odometry_sensor">
-      <linkName>iris/vi_sensor/ground_truth/odometry_sensor_link</linkName>
-      <robotNamespace>iris/vi_sensor/ground_truth</robotNamespace>
+      <linkName>/vi_sensor/ground_truth/odometry_sensor_link</linkName>
+      <robotNamespace>/vi_sensor/ground_truth</robotNamespace>
       <poseTopic>pose</poseTopic>
       <poseWithCovarianceTopic>pose_with_covariance</poseWithCovarianceTopic>
       <positionTopic>position</positionTopic>
@@ -751,7 +759,7 @@
       <odometryTopic>odometry</odometryTopic>
       <parentFrameId>world</parentFrameId>
       <!-- Use the scoped link name here. e.g. Model::link. -->
-      <childFrameId>iris/vi_sensor/base_link</childFrameId>
+      <childFrameId>/vi_sensor/base_link</childFrameId>
       <measurementDivisor>1</measurementDivisor>
       <!-- only every (seq % measurementDivisor) == 0 measurement is published [int] -->
       <measurementDelay>0</measurementDelay>
@@ -776,7 +784,7 @@
     </plugin>
   </gazebo>
   <!-- IMU link -->
-  <link name="iris/vi_sensor/imu_link">
+  <link name="/vi_sensor/imu_link">
     <inertial>
       <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001"/>
       <mass value="0.015"/>
@@ -785,19 +793,19 @@
     </inertial>
   </link>
   <!-- IMU joint -->
-  <joint name="iris/vi_sensor/imu_joint" type="revolute">
+  <joint name="/vi_sensor/imu_joint" type="revolute">
     <origin rpy="0 0 0" xyz="0.015 0 0.0113"/>
-    <parent link="iris/vi_sensor/vi_sensor_link"/>
-    <child link="iris/vi_sensor/imu_link"/>
+    <parent link="/vi_sensor/vi_sensor_link"/>
+    <child link="/vi_sensor/imu_link"/>
     <limit effort="0" lower="0" upper="0" velocity="0"/>
   </joint>
   <gazebo>
     <plugin filename="librotors_gazebo_imu_plugin.so" name="rotors_gazebo_imu_plugin">
       <!-- A good description of the IMU parameters can be found in the kalibr documentation:
            https://github.com/ethz-asl/kalibr/wiki/IMU-Noise-Model-and-Intrinsics -->
-      <robotNamespace>iris/vi_sensor</robotNamespace>
+      <robotNamespace>/vi_sensor</robotNamespace>
       <!-- (string, required): ros namespace in which the messages are published -->
-      <linkName>iris/vi_sensor/imu_link</linkName>
+      <linkName>/vi_sensor/imu_link</linkName>
       <!-- (string, required): name of the body which holds the IMU sensor -->
       <imuTopic>/imu</imuTopic>
       <!-- (string): name of the sensor output topic and prefix of service names (defaults to imu) -->
@@ -819,15 +827,5 @@
       <!-- Accelerometer turn on bias standard deviation [m/s^2] -->
     </plugin>
   </gazebo>
-  <plugin filename="libgazebo_ros_p3d.so" name="p3d_base_controller">
-    <alwaysOn>true</alwaysOn>
-    <updateRate>50.0</updateRate>
-    <bodyName>iris/base_link</bodyName>
-    <topicName>ground_truth/state</topicName>
-    <gaussianNoise>0.01</gaussianNoise>
-    <frameName>world</frameName>
-    <xyzOffsets>0 0 0</xyzOffsets>
-    <rpyOffsets>0 0 0</rpyOffsets>
-  </plugin>
 </robot>
 
