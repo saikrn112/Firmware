@@ -13,9 +13,10 @@
     <arg name="est" default="ekf2"/>
     <arg name="vehicle" default="iris"/>
     <arg name="world" default="$(find mavlink_sitl_gazebo)/worlds/empty.world"/>
-    <arg name="sdf" default="$(find mavlink_sitl_gazebo)/models/$(arg vehicle)/$(arg vehicle).sdf"/>
-    <!-- <arg name="sdf" default="$(find rotors_description)/urdf/mav_vi.sdf"/> -->
-    <arg name="rcS" default="$(find px4)/posix-configs/SITL/init/$(arg est)/iris"/>
+    <!-- <arg name="sdf" default="$(find mavlink_sitl_gazebo)/models/$(arg vehicle)/$(arg vehicle).sdf"/> -->
+    <arg name="sdf" default="$(find rotors_description)/urdf/mav_vi.sdf"/>
+    <!-- <arg name="rcS" default="$(find px4)/posix-configs/SITL/init/$(arg est)/iris"/> -->
+    <arg name="rcS" default="$(find px4)/posix-configs/SITL/init/$(arg est)/iris_vi"/>
     <!-- gazebo configs -->
     <arg name="gui" default="true"/>
     <arg name="debug" default="false"/>
@@ -34,7 +35,7 @@
     <arg name="enable_mavlink_interface" default="true"/>
     
     <!-- send the robot XML to param server -->
-    <!-- <param name="robot_description" command="
+    <param name="robot_description" command="
       $(find xacro)/xacro.py '$(arg model)'
       enable_logging:=$(arg enable_logging)
       enable_ground_truth:=$(arg enable_ground_truth)
@@ -43,7 +44,7 @@
       wait_to_record_bag:=$(arg wait_to_record_bag)
       namespace:=$(arg namespace)
       mav_name:=$(arg vehicle)"
-    /> -->
+    />
 
     <!-- PX4 SITL -->
     <node name="sitl" pkg="px4" type="px4" output="screen" args="$(find px4) $(arg rcS)"/>
@@ -70,7 +71,7 @@
     </include>
 
     <!-- gazebo model -->
-<!--     <node name="spawn_iris" pkg="gazebo_ros" type="spawn_model" output="screen" args="-param robot_description -urdf -model $(arg vehicle) -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P) -Y $(arg Y)"/> -->
-    <node name="$(anon vehicle_spawn)" pkg="gazebo_ros" type="spawn_model" output="screen" args="-sdf -file $(arg sdf) -model $(arg vehicle) -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P) -Y $(arg Y)"/>
+    <node name="spawn_iris" pkg="gazebo_ros" type="spawn_model" output="screen" args="-param robot_description -urdf -model $(arg vehicle) -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P) -Y $(arg Y)"/> 1
+    <!-- <node name="$(anon vehicle_spawn)" pkg="gazebo_ros" type="spawn_model" output="screen" args="-sdf -file $(arg sdf) -model $(arg vehicle) -x $(arg x) -y $(arg y) -z $(arg z) -R $(arg R) -P $(arg P) -Y $(arg Y)"/> -->
 
 </launch>
