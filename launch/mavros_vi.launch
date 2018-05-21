@@ -50,16 +50,16 @@
     <node name="sitl" pkg="px4" type="px4" output="screen" args="$(find px4) $(arg rcS)"/>
 
     <!-- MAVROS -->
-    <arg name="fcu_url" default="udp://:14540@localhost:14557"/>
+<!--     <arg name="fcu_url" default="udp://:14540@localhost:14557"/>
     <arg name="respawn_mavros" default="false"/>
 
     <include file="$(find mavros)/launch/px4.launch">
-        <!-- GCS link is provided by SITL -->
+        GCS link is provided by SITL
         <arg name="gcs_url" value=""/>
         <arg name="fcu_url" value="$(arg fcu_url)"/>
         <arg name="respawn_mavros" value="$(arg respawn_mavros)"/>
     </include>
-
+ -->
     <!-- Gazebo sim -->
     <include file="$(find gazebo_ros)/launch/empty_world.launch">
         <arg name="gui" value="$(arg gui)"/>

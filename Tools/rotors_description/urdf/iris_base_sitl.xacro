@@ -42,14 +42,14 @@
         />
   </xacro:if>
 
-  
+
     <!-- Instantiate gps plugin. -->
   <xacro:gps_plugin_macro
     namespace="${namespace}"
     gps_noise="true"
     >
   </xacro:gps_plugin_macro>
-  
+
   <xacro:if value="$(arg enable_mavlink_interface)">
   <!-- Instantiate mavlink telemetry interface. -->
   <xacro:mavlink_interface_macro
@@ -86,9 +86,9 @@
     accelerometer_bias_correlation_time="300.0"
     accelerometer_turn_on_bias_sigma="0.1960"
   >
-    <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001" />
-    <origin xyz="0 0 0" rpy="0 0 0" />
-  </xacro:imu_plugin_macro>
+  <inertia ixx="0.00001" ixy="0.0" ixz="0.0" iyy="0.00001" iyz="0.0" izz="0.00001" />
+  <origin xyz="0 0 0" rpy="0 0 0" />
+</xacro:imu_plugin_macro>
 
   <xacro:if value="$(arg enable_ground_truth)">
     <!-- Mount an IMU providing ground truth. -->
@@ -154,4 +154,3 @@
   </xacro:if>
 
 </robot>
-
