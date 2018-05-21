@@ -53,8 +53,8 @@
 #include <arpa/inet.h>
 #include <drivers/device/device.h>
 #endif
-#include <systemlib/param/param.h>
-#include <systemlib/perf_counter.h>
+#include <parameters/param.h>
+#include <perf/perf_counter.h>
 #include <pthread.h>
 #include <systemlib/mavlink_log.h>
 #include <drivers/device/ringbuffer.h>
@@ -386,7 +386,7 @@ public:
 	bool			get_has_received_messages() { return _received_messages; }
 	void			set_wait_to_transmit(bool wait) { _wait_to_transmit = wait; }
 	bool			get_wait_to_transmit() { return _wait_to_transmit; }
-	bool			should_transmit() { return (_boot_complete && (!_wait_to_transmit || (_wait_to_transmit && _received_messages))); }
+	bool			should_transmit() { return (_transmitting_enabled && _boot_complete && (!_wait_to_transmit || (_wait_to_transmit && _received_messages))); }
 
 	bool			message_buffer_write(const void *ptr, int size);
 
@@ -394,7 +394,7 @@ public:
 	void			unlockMessageBufferMutex(void) { pthread_mutex_unlock(&_message_buffer_mutex); }
 
 	/**
-	 * Count a transmision error
+	 * Count a transmission error
 	 */
 	void			count_txerr();
 
@@ -480,11 +480,28 @@ public:
 
 	bool ftp_enabled() const { return _ftp_on; }
 
+	struct ping_statistics_s {
+		uint64_t last_ping_time;
+		uint32_t last_ping_seq;
+		uint32_t dropped_packets;
+		float last_rtt;
+		float mean_rtt;
+		float max_rtt;
+		float min_rtt;
+	};
+
+	/**
+	 * Get the ping statistics of this MAVLink link
+	 */
+	struct ping_statistics_s &get_ping_statistics() { return _ping_stats; }
+
 protected:
 	Mavlink			*next;
 
 private:
 	int			_instance_id;
+	bool			_transmitting_enabled;
+	bool			_transmitting_enabled_commanded;
 
 	orb_advert_t		_mavlink_log_pub;
 	bool			_task_running;
@@ -520,7 +537,6 @@ private:
 	int32_t			_radio_id;
 
 	ringbuffer::RingBuffer		_logbuffer;
-	unsigned int		_total_counter;
 
 	pthread_t		_receive_thread;
 
@@ -580,6 +596,8 @@ private:
 	unsigned short _remote_port;
 
 	struct telemetry_status_s	_rstatus;			///< receive status
+
+	struct ping_statistics_s	_ping_stats;		///< ping statistics
 
 	struct mavlink_message_buffer {
 		int write_ptr;
