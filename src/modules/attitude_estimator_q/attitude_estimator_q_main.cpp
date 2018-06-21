@@ -45,6 +45,7 @@
 #include <lib/ecl/geo_lookup/geo_mag_declination.h>
 #include <mathlib/math/filter/LowPassFilter2p.hpp>
 #include <mathlib/mathlib.h>
+#include <matrix/math.hpp>
 #include <px4_config.h>
 #include <px4_posix.h>
 #include <px4_tasks.h>
@@ -64,6 +65,7 @@ using matrix::Dcmf;
 using matrix::Eulerf;
 using matrix::Quatf;
 using matrix::Vector3f;
+using matrix::wrap_pi;
 
 class AttitudeEstimatorQ;
 
@@ -571,7 +573,7 @@ bool AttitudeEstimatorQ::update(float dt)
 			// Vision heading correction
 			// Project heading to global frame and extract XY component
 			Vector3f vision_hdg_earth = _q.conjugate(_vision_hdg);
-			float vision_hdg_err = _wrap_pi(atan2f(vision_hdg_earth(1), vision_hdg_earth(0)));
+			float vision_hdg_err = wrap_pi(atan2f(vision_hdg_earth(1), vision_hdg_earth(0)));
 			// Project correction to body frame
 			corr += _q.conjugate_inversed(Vector3f(0.0f, 0.0f, -vision_hdg_err)) * _w_ext_hdg;
 		}
@@ -580,7 +582,7 @@ bool AttitudeEstimatorQ::update(float dt)
 			// Mocap heading correction
 			// Project heading to global frame and extract XY component
 			Vector3f mocap_hdg_earth = _q.conjugate(_mocap_hdg);
-			float mocap_hdg_err = _wrap_pi(atan2f(mocap_hdg_earth(1), mocap_hdg_earth(0)));
+			float mocap_hdg_err = wrap_pi(atan2f(mocap_hdg_earth(1), mocap_hdg_earth(0)));
 			// Project correction to body frame
 			corr += _q.conjugate_inversed(Vector3f(0.0f, 0.0f, -mocap_hdg_err)) * _w_ext_hdg;
 		}
@@ -590,7 +592,7 @@ bool AttitudeEstimatorQ::update(float dt)
 		// Magnetometer correction
 		// Project mag field vector to global frame and extract XY component
 		Vector3f mag_earth = _q.conjugate(_mag);
-		float mag_err = _wrap_pi(atan2f(mag_earth(1), mag_earth(0)) - _mag_decl);
+		float mag_err = wrap_pi(atan2f(mag_earth(1), mag_earth(0)) - _mag_decl);
 		float gainMult = 1.0f;
 		const float fifty_dps = 0.873f;
 
