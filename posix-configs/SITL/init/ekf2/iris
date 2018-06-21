@@ -21,16 +21,9 @@ param set COM_OBL_RC_ACT 0
 param set COM_OF_LOSS_T 5
 param set COM_RC_IN_MODE 1
 param set COM_ARM_EKF_AB 0.01
-param set COM_ARM_EKF_GB 0.00017
-param set COM_ARM_EKF_POS 1.0
-param set COM_ARM_EKF_VEL 1.0
-param set EKF2_AID_MASK 25
+param set EKF2_AID_MASK 1
 param set EKF2_ANGERR_INIT 0.01
 param set EKF2_GBIAS_INIT 0.01
-param set COM_ARM_EKF_YAW 1.0
-param set COM_ARM_IMU_ACC 1.0
-param set COM_ARM_IMU_GYR 0.3
-
 param set EKF2_HGT_MODE 0
 param set EKF2_MAG_TYPE 1
 param set MAV_TYPE 2
