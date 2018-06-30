@@ -48,7 +48,7 @@
 #include <conversion/rotation.h>
 #include <drivers/drv_hrt.h>
 #include <lib/ecl/geo/geo.h>
-#include <systemlib/circuit_breaker.h>
+#include <circuit_breaker/circuit_breaker.h>
 #include <mathlib/math/Limits.hpp>
 #include <mathlib/math/Functions.hpp>
 
@@ -100,8 +100,6 @@ To reduce control latency, the module directly polls on the gyro topic published
 MulticopterAttitudeControl::MulticopterAttitudeControl() :
 	ModuleParams(nullptr),
 	_loop_perf(perf_alloc(PC_ELAPSED, "mc_att_control")),
-	_controller_latency_perf(perf_alloc_once(PC_ELAPSED, "ctrl_latency")),
-
 	_lp_filters_d{
 	{initial_update_rate_hz, 50.f},
 	{initial_update_rate_hz, 50.f},
@@ -397,7 +395,7 @@ MulticopterAttitudeControl::control_attitude(float dt)
 		qd_red = qd;
 
 	} else {
-		/* transform rotation from current to desired thrust vector for into a reduced world frame attitude */
+		/* transform rotation from current to desired thrust vector into a world frame reduced desired attitude */
 		qd_red *= q;
 	}
 
@@ -419,12 +417,16 @@ MulticopterAttitudeControl::control_attitude(float dt)
 	/* calculate angular rates setpoint */
 	_rates_sp = eq.emult(attitude_gain);
 
-	/* Feed forward the yaw setpoint rate. We need to apply the yaw rate in the body frame.
-	 * We infer the body z axis by taking the last column of R.transposed (== q.inversed)
-	 * because it's the rotation axis for body yaw and multiply it by the rate and gain. */
+	/* Feed forward the yaw setpoint rate.
+	 * The yaw_feedforward_rate is a commanded rotation around the world z-axis,
+	 * but we need to apply it in the body frame (because _rates_sp is expressed in the body frame).
+	 * Therefore we infer the world z-axis (expressed in the body frame) by taking the last column of R.transposed (== q.inversed)
+	 * and multiply it by the yaw setpoint rate (yaw_sp_move_rate) and gain (_yaw_ff).
+	 * This yields a vector representing the commanded rotatation around the world z-axis expressed in the body frame
+	 * such that it can be added to the rates setpoint.
+	 */
 	Vector3f yaw_feedforward_rate = q.inversed().dcm_z();
 	yaw_feedforward_rate *= _v_att_sp.yaw_sp_move_rate * _yaw_ff.get();
-	yaw_feedforward_rate(2) *= yaw_w;
 	_rates_sp += yaw_feedforward_rate;
 
 
@@ -705,9 +707,9 @@ MulticopterAttitudeControl::run()
 				if (_v_control_mode.flag_control_manual_enabled) {
 					/* manual rates control - ACRO mode */
 					Vector3f man_rate_sp(
-							math::superexpo(_manual_control_sp.y, _acro_expo.get(), _acro_superexpo.get()),
-							math::superexpo(-_manual_control_sp.x, _acro_expo.get(), _acro_superexpo.get()),
-							math::superexpo(_manual_control_sp.r, _acro_expo.get(), _acro_superexpo.get()));
+							math::superexpo(_manual_control_sp.y, _acro_expo_rp.get(), _acro_superexpo_rp.get()),
+							math::superexpo(-_manual_control_sp.x, _acro_expo_rp.get(), _acro_superexpo_rp.get()),
+							math::superexpo(_manual_control_sp.r, _acro_expo_y.get(), _acro_superexpo_y.get()));
 					_rates_sp = man_rate_sp.emult(_acro_rate_max);
 					_thrust_sp = _manual_control_sp.z;
 
@@ -758,7 +760,6 @@ MulticopterAttitudeControl::run()
 					if (_actuators_0_pub != nullptr) {
 
 						orb_publish(_actuators_id, _actuators_0_pub, &_actuators);
-						perf_end(_controller_latency_perf);
 
 					} else if (_actuators_id) {
 						_actuators_0_pub = orb_advertise(_actuators_id, &_actuators);
@@ -800,7 +801,6 @@ MulticopterAttitudeControl::run()
 						if (_actuators_0_pub != nullptr) {
 
 							orb_publish(_actuators_id, _actuators_0_pub, &_actuators);
-							perf_end(_controller_latency_perf);
 
 						} else if (_actuators_id) {
 							_actuators_0_pub = orb_advertise(_actuators_id, &_actuators);

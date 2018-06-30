@@ -555,7 +555,8 @@ class uploader(object):
                                    "high that it is not safe! If unsure, use px4fmu-v2_default.\n"
                                    "\n"
                                    "If you know you that the board does not have the silicon errata, use\n"
-                                   "this script with --force, or update the bootloader.\n")
+                                   "this script with --force, or update the bootloader. If you are invoking\n"
+                                   "upload using make, you can use force-upload target to force the upload.\n")
 
         self.__erase("Erase  ")
         self.__program("Program", fw)
@@ -667,7 +668,7 @@ def main():
             # on unix-like platforms use glob to support wildcard ports. This allows
             # the use of /dev/serial/by-id/usb-3D_Robotics on Linux, which prevents the upload from
             # causing modem hangups etc
-            if "linux" in _platform or "darwin" in _platform:
+            if "linux" in _platform or "darwin" in _platform or "cygwin" in _platform:
                 import glob
                 for pattern in patterns:
                     portlist += glob.glob(pattern)
@@ -688,6 +689,10 @@ def main():
                             up = uploader(port, args.baud_bootloader, baud_flightstack)
                     elif "darwin" in _platform:
                         # OS X, don't open Windows and Linux ports
+                        if "COM" not in port and "ACM" not in port:
+                            up = uploader(port, args.baud_bootloader, baud_flightstack)
+                    elif "cygwin" in _platform:
+                        # Cygwin, don't open native Windows COM and Linux ports
                         if "COM" not in port and "ACM" not in port:
                             up = uploader(port, args.baud_bootloader, baud_flightstack)
                     elif "win" in _platform:
